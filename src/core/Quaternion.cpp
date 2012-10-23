@@ -1,14 +1,15 @@
-#include "Quaternion.h"
+/*#include "Quaternion.h"
+//#include "Transform.h"
 
 Quaternion::Quaternion(const Transform& t) {
 
 }
 
-Transform Quaternion::ToTransform() const {
+/*Transform Quaternion::ToTransform() const {
 
-}
+}*-/
 
-Quaternion Quaternion::Slerp(float t, const Quaternion& q1, const Quaternion& q2) const {
+Quaternion Quaternion::Slerp(float t, const Quaternion& q1, const Quaternion& q2) {
 	float cosTheta = Dot(q1, q2);
 	if (cosTheta > 0.9995f) { //almost in same direction
 		return Normalize(q1 * (1.0f - t) + q2 * t);
@@ -21,10 +22,10 @@ Quaternion Quaternion::Slerp(float t, const Quaternion& q1, const Quaternion& q2
 	}
 }
 
-float Quaternion::Dot(const Quaternion& q1, const Quaternion& q2) const {
-	return Dot(q1.v, q2.v) + q1.w * q2.w;
+float Quaternion::Dot(const Quaternion& q1, const Quaternion& q2) {
+	return q1.v.Dot(q2.v) + q1.w * q2.w;
 }
 
-Quaternion Quaternion::Normalize(const Quaternion& q) const {
+Quaternion Quaternion::Normalize(const Quaternion& q) {
 	return q / sqrtf(Dot(q, q));
-}
+}*/

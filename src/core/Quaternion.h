@@ -45,11 +45,11 @@ public:
 		return *this;
 	}
 
-	Transform ToTransform() const;
+	//Transform ToTransform() const;
 
-	static Quaternion Slerp(float t, const Quaternion& q1, const Quaternion& q2) const;
-	static float Dot(const Quaternion& q1, const Quaternion& q2) const;
-	static Quaternion Normalize(const Quaternion& q) const;
+	static Quaternion Slerp(float t, const Quaternion& q1, const Quaternion& q2);
+	static float Dot(const Quaternion& q1, const Quaternion& q2);
+	static Quaternion Normalize(const Quaternion& q);
 
 private:
 public:

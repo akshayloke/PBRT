@@ -20,8 +20,8 @@ public:
 	bool operator==(const Matrix4x4& mat) const;
 	bool operator!=(const Matrix4x4& mat) const;
 
-	static Matrix4x4 Transpose(const Matrix4x4& mat) const;
-	static Matrix4x4 Mul(const Matrix4x4& m1, const Matrix4x4& m2) const;
+	static Matrix4x4 Transpose(const Matrix4x4& mat);
+	static Matrix4x4 Mul(const Matrix4x4& m1, const Matrix4x4& m2);
 	static Matrix4x4 Inverse(const Matrix4x4& mat);
 
 private:

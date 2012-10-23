@@ -108,8 +108,19 @@ public:
 	float LengthSquared() const { return (x*x + y*y + z*z); }
 	float Length() const { return sqrtf(LengthSquared()); }
 	
-	void FaceForward(const Vector& v);
-	void FaceForward(const Normal& n);
+	float Dot(const Vector& v) const;
+	float Dot(const Normal& n) const;
+	float AbsDot(const Vector& v) const;
+	float AbsDot(const Normal& n) const;
+	Vector Cross(const Vector& v) const;
+	Vector Cross(const Normal& n) const;
+	Vector FaceForward(const Vector& v) const;
+	Vector FaceForward(const Normal& n) const;
+
+	Vector Normalize() const {
+		ASSERT(!HasNans());
+		return (*this) / (*this).Length();
+	}
 
 	void Normalized() {
 		*this = (*this) / (*this).Length();

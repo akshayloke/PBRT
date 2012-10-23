@@ -1,7 +1,8 @@
-#include "Matrix4x4.h"
+/*#include "Matrix4x4.h"
+#include <iostream>
 
 Matrix4x4::Matrix4x4(float mat[4][4]) {
-	std::copy(mat, mat + 16 * sizeof(float), m);
+	memcpy(m, mat, 16 * sizeof(float));
 }
 
 Matrix4x4::Matrix4x4(float t00, float t01, float t02, float t03, 
@@ -30,14 +31,14 @@ bool Matrix4x4::operator!=(const Matrix4x4& mat) const {
 	return false;
 }
 
-bool Matrix4x4::Transpose(const Matrix4x4& mat) const {
-	return Matrix4x4(m[0][0], m[1][0], m[2][0], m[3][0],
-					 m[0][1], m[1][1], m[2][1], m[3][1],
-					 m[0][2], m[1][2], m[2][2], m[3][2],
-					 m[0][3], m[1][3], m[2][3], m[3][3]);
+Matrix4x4 Matrix4x4::Transpose(const Matrix4x4& mat) {
+	return Matrix4x4(mat.m[0][0], mat.m[1][0], mat.m[2][0], mat.m[3][0],
+					 mat.m[0][1], mat.m[1][1], mat.m[2][1], mat.m[3][1],
+					 mat.m[0][2], mat.m[1][2], mat.m[2][2], mat.m[3][2],
+					 mat.m[0][3], mat.m[1][3], mat.m[2][3], mat.m[3][3]);
 }
 
-bool Matrix4x4::Mul(const Matrix4x4& m1, const Matrix4x4& m2) const {
+Matrix4x4 Matrix4x4::Mul(const Matrix4x4& m1, const Matrix4x4& m2) {
 	/*return Matrix4x4(m1.m[0][0] * m2.m[0][0] + m1.m[0][1] * m2.m[1][0] + m1.m[0][2] * m2.m[2][0] + m1.m[0][3] * m2.m[3][0],
 					 m1.m[0][0] * m2.m[0][1] + m1.m[0][1] * m2.m[1][1] + m1.m[0][2] * m2.m[2][1] + m1.m[0][3] * m2.m[3][1],
 					 m1.m[0][0] * m2.m[0][2] + m1.m[0][1] * m2.m[1][2] + m1.m[0][2] * m2.m[2][2] + m1.m[0][3] * m2.m[3][2],
@@ -53,7 +54,7 @@ bool Matrix4x4::Mul(const Matrix4x4& m1, const Matrix4x4& m2) const {
 					 m1.m[3][0] * m2.m[0][0] + m1.m[3][1] * m2.m[1][0] + m1.m[3][2] * m2.m[2][0] + m1.m[3][3] * m2.m[3][0],
 					 m1.m[3][0] * m2.m[0][1] + m1.m[3][1] * m2.m[1][1] + m1.m[3][2] * m2.m[2][1] + m1.m[3][3] * m2.m[3][1],
 					 m1.m[3][0] * m2.m[0][2] + m1.m[3][1] * m2.m[1][2] + m1.m[3][2] * m2.m[2][2] + m1.m[3][3] * m2.m[3][2],
-					 m1.m[3][0] * m2.m[0][3] + m1.m[3][1] * m2.m[1][3] + m1.m[3][2] * m2.m[2][3] + m1.m[3][3] * m2.m[3][3]);*/
+					 m1.m[3][0] * m2.m[0][3] + m1.m[3][1] * m2.m[1][3] + m1.m[3][2] * m2.m[2][3] + m1.m[3][3] * m2.m[3][3]);*-/
 
 	Matrix4x4 ret;
 	for (int i=0; i<4; i++)
@@ -65,11 +66,12 @@ bool Matrix4x4::Mul(const Matrix4x4& m1, const Matrix4x4& m2) const {
 	return ret;
 }
 
-bool Matrix4x4::Inverse(const Matrix4x4& mat) const {
+Matrix4x4 Matrix4x4::Inverse(const Matrix4x4& mat) {
 	int indexC[4], indexR[4];
 	int iPiv[4] = {0, 0, 0, 0};
 	float mInv[4][4];
-	std::copy(mat.m, mat.m + 16 * sizeof(float), mInv);
+	
+	memcpy(mInv, mat.m, 16 * sizeof(float));
 	for (int i=0; i<4; i++) {
 		int iRow = -1, iCol = -1;
 		float big = 0;
@@ -79,7 +81,7 @@ bool Matrix4x4::Inverse(const Matrix4x4& mat) const {
 				for (int k = 0; k < 4; k++) {
 					if (iPiv[k] == 0) {
 						if (fabsf(mInv[j][k]) >= big) {
-							big = float(std::fabsf(mInv[j][k]));
+							big = float(fabsf(mInv[j][k]));
 							iRow = j;
 							iCol = k;
 						}
@@ -87,7 +89,7 @@ bool Matrix4x4::Inverse(const Matrix4x4& mat) const {
 					else if (iPiv[k] > 1) {
 						//TODO
 						//Error("Singular matrix in MatrixInvert");
-						cout << "Singular matrix in MatrixInvert" << endl;
+						std::cout << "Singular matrix in MatrixInvert" << std::endl;
 					}
 				}
 			}
@@ -96,14 +98,14 @@ bool Matrix4x4::Inverse(const Matrix4x4& mat) const {
 		// Swap rows _irow_ and _icol_ for pivot
 		if (iRow != iCol) {
 			for (int k = 0; k < 4; ++k)
-				swap(mInv[iRow][k], mInv[iCol][k]);
+				std::swap(mInv[iRow][k], mInv[iCol][k]);
 		}
 		indexR[i] = iRow;
 		indexC[i] = iCol;
 		if (mInv[iCol][iCol] == 0.) {
 			//TODO
 			//Error("Singular matrix in MatrixInvert");
-			cout << "Singular matrix in MatrixInvert" << endl;
+			std::cout << "Singular matrix in MatrixInvert" << std::endl;
 		}
 
 		// Set $m[iCol][iCol]$ to one by scaling row _icol_ appropriately
@@ -126,8 +128,8 @@ bool Matrix4x4::Inverse(const Matrix4x4& mat) const {
 	for (int j = 3; j >= 0; j--) {
 		if (indexR[j] != indexC[j]) {
 			for (int k = 0; k < 4; k++)
-				swap(mInv[k][indexR[j]], mInv[k][indexC[j]]);
+				std::swap(mInv[k][indexR[j]], mInv[k][indexC[j]]);
 		}
 	}
 	return Matrix4x4(mInv);
-}
+}*/

@@ -111,6 +111,14 @@ public:
 		return (&x)[i];
 	}
 
+	float DistanceSquared(const Point& p) {
+		return (*this - p).LengthSquared();
+	}
+
+	float Distance(const Point& p) {
+		return (*this - p).Length();
+	}
+
 	bool HasNans() const {
 		return isnan(x) || isnan(y) || isnan(z);
 	}

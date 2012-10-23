@@ -168,28 +168,16 @@
 					RelativePath="..\core\Geometry.cpp"
 					>
 				</File>
+				<File
+					RelativePath="..\core\Transformations.cpp"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="main"
 				>
 				<File
 					RelativePath="..\core\Main.cpp"
-					>
-				</File>
-			</Filter>
-			<Filter
-				Name="transform"
-				>
-				<File
-					RelativePath="..\core\Matrix4x4.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\core\Quaternion.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\core\Transform.cpp"
 					>
 				</File>
 			</Filter>
@@ -243,7 +231,7 @@
 					</File>
 				</Filter>
 				<Filter
-					Name="transform"
+					Name="transformations"
 					>
 					<File
 						RelativePath="..\core\Matrix4x4.h"
