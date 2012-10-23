@@ -177,6 +177,22 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="transform"
+				>
+				<File
+					RelativePath="..\core\Matrix4x4.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\core\Quaternion.cpp"
+					>
+				</File>
+				<File
+					RelativePath="..\core\Transform.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -192,6 +208,10 @@
 				</File>
 				<File
 					RelativePath="..\core\Pbrt.h"
+					>
+				</File>
+				<File
+					RelativePath="..\core\Transformations.h"
 					>
 				</File>
 				<Filter
@@ -219,6 +239,22 @@
 					</File>
 					<File
 						RelativePath="..\core\Vector.h"
+						>
+					</File>
+				</Filter>
+				<Filter
+					Name="transform"
+					>
+					<File
+						RelativePath="..\core\Matrix4x4.h"
+						>
+					</File>
+					<File
+						RelativePath="..\core\Quaternion.h"
+						>
+					</File>
+					<File
+						RelativePath="..\core\Transform.h"
 						>
 					</File>
 				</Filter>
